@@ -208,5 +208,44 @@ let res n =
 res 1000 |> printf "%d"
 ```
 
-## Вывод
+## Бесконечные последовательности
 
+### Задача 6
+
+```F#
+let sum n = [ 1 .. (n - 1) ] |> List.sum |> (*) n
+
+Seq.initInfinite ((+) 1)
+|> Seq.map sum
+|> Seq.take 100
+|> Seq.sum
+|> (*) 2
+|> printf "%d \n"
+
+```
+
+### Задача 25
+
+```F#
+let mutable a = 0I
+let mutable b = 1I
+
+let f x y =
+    b <- x + y
+    a <- y
+    b
+
+
+let res n =
+    Seq.initInfinite ((+) 1)
+    |> Seq.map (fun x ->
+        if x = 0 then 0I
+        else if x = 1 then 1I
+        else f a b)
+    |> Seq.take (10 * n)
+    |> Seq.filter (fun x -> x < pown 10I (n - 1))
+    |> Seq.length
+    |> (+) 1
+
+res 3 |> printf "%d "
+```
