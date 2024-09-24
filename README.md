@@ -44,6 +44,7 @@ public static void Main(string[] args)
         Console.WriteLine(count);
     }
 ```
+
 ## Реализация Хвостовой рекурсией
 
 ### Задача 6
@@ -62,7 +63,8 @@ res 100 |> printf "%d \n"
 
 ### Задача 25
 
-Функция sum принимает в качестве первых двух аргументов числа Фибоначи, таким образом рекурсивно можем пересчитывает следующие числа и увеличивать
+Функция sum принимает в качестве первых двух аргументов числа Фибоначи, таким образом рекурсивно можем пересчитывает
+следующие числа и увеличивать
 счетчие найденных чисел с меньшим количеством знаков.
 
 ```F#
@@ -72,7 +74,8 @@ let res = sum 0I 1I 2
 
 res 1000 |> printf "%d \n"
 ```
-## Решение рекурсией 
+
+## Реализвция рекурсией
 
 ### Задача 6
 
@@ -94,4 +97,116 @@ let res = sum 0I 1I
 
 res 1000 |> printf "%d \n"
 ```
+
+## Реализвция генерацией
+
+### Задача 6
+
+```F#
+
+let sum n = [ 1 .. (n - 1) ] |> List.sum |> (*) n
+let res n = [ 1..n ] |> List.fold (fun acc k -> acc +  2 * sum (k - 1)) 0
+
+res 100 |> printf "%d \n"
+
+```
+
+### Задача 25
+
+```F#
+let mutable a = 0I
+let mutable b = 1I
+
+let f x y =
+    b <- x + y
+    a <- y
+    b
+
+let fib n =
+    [ 0 .. 10 * n ]
+    |> List.map (fun x ->
+        if x = 0 then 0I
+        else if x = 1 then 1I
+        else f a b)
+
+let res n =
+    let arr = fib n
+
+    [ 1 .. 10 * n ]
+    |> List.fold (fun acc x -> if arr[x] < pown 10I (n - 1) then acc + 1 else acc) 1
+
+res 1000 |> printf "%d"
+```
+
+## Реализвция c помощью map
+
+### Задача 6
+
+```F#
+let sum n = [ 1 .. (n - 1) ] |> List.sum |> (*) n
+let res n = [ 1..n ] |> List.fold (fun acc k -> acc +  2 * sum (k - 1)) 0
+
+res 100 |> printf "%d \n"
+```
+
+### Задача 25
+
+```F#
+
+let mutable a = 0I
+let mutable b = 1I
+
+let f x y =
+    b <- x + y
+    a <- y
+    b
+
+
+let res n = 
+    [ 0..10 * n ]
+    |> List.map (fun x ->
+        if x = 0 then 0I
+        else if x = 1 then 1I
+        else f a b) |> List.filter (fun x -> x < pown 10I (n - 1)) |> List.length 
+    
+
+res 1000 |> printf "%d \n"
+```
+
+## Реализвция c помощью цикла
+
+### Задача 6
+
+```F#
+
+let sum n = [ 1 .. (n - 1) ] |> List.sum |> (*) n
+let res n = seq{for i in 1..n -> 2 * sum i} |> Seq.sum
+
+res 100 |> printf "%d \n"
+
+```
+
+### Задача 25
+
+```F#
+
+
+
+let mutable a = 0I
+let mutable b = 1I
+
+let f x y =
+    b <- x + y
+    a <- y
+    b
+
+let res n =
+    seq { for i in 0 .. 10 * n -> (fun i -> if i = 1 then 1I else if i = 0 then 0I else f a b) i }
+    |> Seq.filter (fun x -> x < pown 10I (n - 1))
+    |> Seq.length
+
+res 1000 |> printf "%d"
+```
+
+## Вывод
 

@@ -10,7 +10,7 @@ let f x y =
 
 
 let res n = 
-    [ 0..10000 ]
+    [ 0..10 * n ]
     |> List.map (fun x ->
         if x = 0 then 0I
         else if x = 1 then 1I
