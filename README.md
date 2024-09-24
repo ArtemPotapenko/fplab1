@@ -237,7 +237,7 @@ let f x y =
 
 
 let res n =
-    Seq.initInfinite ((+) 1)
+    Seq.initInfinite ((+) 0)
     |> Seq.map (fun x ->
         if x = 0 then 0I
         else if x = 1 then 1I
@@ -245,7 +245,6 @@ let res n =
     |> Seq.take (10 * n)
     |> Seq.filter (fun x -> x < pown 10I (n - 1))
     |> Seq.length
-    |> (+) 1
 
-res 3 |> printf "%d "
+res 1000 |> printf "%d "
 ```
